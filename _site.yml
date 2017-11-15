@@ -1,7 +1,7 @@
 name: "DS Homework 6"
 output_dir: "."
 navbar:
-  title: "Manqi's Website"
+  title: "DS Homework 6"
   right:
     - text: "Home"
       href: index.html

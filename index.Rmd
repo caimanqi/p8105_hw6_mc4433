@@ -1,0 +1,17 @@
+---
+title: "P8105 HOMEWORK 6"
+---
+
+### EDA of NYC Restaurant Inspection
+
+The New York City Department of Health and Mental Hygiene (DOHMH) conducts unannounced restaurant inspections on an annual basis in order to check for compliance with policies on food handling, food temperature, personal hygiene of restaurant workers, and vermin control. Regulation violations are each worth a pre-specified number of points, which are totaled at the end of the inspection. Scores are converted into grades, where a lower score earns a higher grade.
+
+Each violation falls into one of three categories:
+
+A public health hazard, such as failing to store food at an appropriate temperature, results in a minimum score of 7
+
+A critical violation, such as improperly washing raw vegetables prior to serving, results in a minimum score of 5
+
+A general violation, such as improperly sanitizing cookware, results in a minimum score of 2
+
+Additional points can then be assigned based on the severity of the violation, ranging from 1-5, at the discretion of the inspector.
