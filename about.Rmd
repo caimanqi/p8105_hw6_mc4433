@@ -20,47 +20,6 @@ Additional points can then be assigned based on the severity of the violation, r
 More details about the scoring and grading process can be found [here](http://www1.nyc.gov/assets/doh/downloads/pdf/rii/how-we-score-grade.pdf).
 
 ##Data description
-Data on restaurant inspection results are publicly available at [NYC Open Data](https://dev.socrata.com/foundry/data.cityofnewyork.us/9w7m-hzhe) and are updated daily. The specific data to be used in this class, linked to at the top of this page, was accessed in October 2017 using the code below.
-
-```{r}
-library(tidyverse)
-library(httr)
-library(jsonlite)
-
-get_all_inspections = function(url) {
-  
-  all_inspections = vector("list", length = 0)
-  
-  loop_index = 1
-  chunk_size = 50000
-  DO_NEXT = TRUE
-  
-  while (DO_NEXT) {
-    message("Getting data, page ", loop_index)
-    
-    all_inspections[[loop_index]] = 
-      GET(url,
-          query = list(`$order` = "zipcode",
-                       `$limit` = chunk_size,
-                       `$offset` = as.integer((loop_index - 1) * chunk_size)
-                       )
-          ) %>%
-      content("text") %>%
-      fromJSON() %>%
-      as_tibble()
-    
-    DO_NEXT = dim(all_inspections[[loop_index]])[1] == chunk_size
-    loop_index = loop_index + 1
-  }
-  
-  all_inspections
-  
-}
-
-url = "https://data.cityofnewyork.us/resource/9w7m-hzhe.json"
-
-nyc_inspections = get_all_inspections(url) %>%
-  bind_rows() 
-```
+Data on restaurant inspection results are publicly available at [NYC Open Data](https://dev.socrata.com/foundry/data.cityofnewyork.us/9w7m-hzhe) and are updated daily. The specific data to be used in this class, linked to at the top of this page.
 
 The dataset contains roughly 400,000 rows and 18 columns. There is information on restaurant name and location, type of food, inspection date, and details on violation codes, total scores, and associated grades. The data is longitudinal in nature, with multiple rows per restaurant representing inspections over time. A complete data dictionary can be accessed [here](Restaurant_Inspection_Open_Data_Dictionary_082214.xlsx).
