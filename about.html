@@ -213,68 +213,7 @@ $(document).ready(function () {
 </div>
 <div id="data-description" class="section level2">
 <h2>Data description</h2>
-<p>Data on restaurant inspection results are publicly available at <a href="https://dev.socrata.com/foundry/data.cityofnewyork.us/9w7m-hzhe">NYC Open Data</a> and are updated daily. The specific data to be used in this class, linked to at the top of this page, was accessed in October 2017 using the code below.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.4.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.2</code></pre>
-<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
-<pre><code>## filter(): dplyr, stats
-## lag():    dplyr, stats</code></pre>
-<pre class="r"><code>library(httr)
-library(jsonlite)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;jsonlite&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     flatten</code></pre>
-<pre class="r"><code>get_all_inspections = function(url) {
-  
-  all_inspections = vector(&quot;list&quot;, length = 0)
-  
-  loop_index = 1
-  chunk_size = 50000
-  DO_NEXT = TRUE
-  
-  while (DO_NEXT) {
-    message(&quot;Getting data, page &quot;, loop_index)
-    
-    all_inspections[[loop_index]] = 
-      GET(url,
-          query = list(`$order` = &quot;zipcode&quot;,
-                       `$limit` = chunk_size,
-                       `$offset` = as.integer((loop_index - 1) * chunk_size)
-                       )
-          ) %&gt;%
-      content(&quot;text&quot;) %&gt;%
-      fromJSON() %&gt;%
-      as_tibble()
-    
-    DO_NEXT = dim(all_inspections[[loop_index]])[1] == chunk_size
-    loop_index = loop_index + 1
-  }
-  
-  all_inspections
-  
-}
-
-url = &quot;https://data.cityofnewyork.us/resource/9w7m-hzhe.json&quot;
-
-nyc_inspections = get_all_inspections(url) %&gt;%
-  bind_rows() </code></pre>
-<pre><code>## Getting data, page 1</code></pre>
-<pre><code>## Getting data, page 2</code></pre>
-<pre><code>## Getting data, page 3</code></pre>
-<pre><code>## Getting data, page 4</code></pre>
-<pre><code>## Getting data, page 5</code></pre>
-<pre><code>## Getting data, page 6</code></pre>
-<pre><code>## Getting data, page 7</code></pre>
-<pre><code>## Getting data, page 8</code></pre>
+<p>Data on restaurant inspection results are publicly available at <a href="https://dev.socrata.com/foundry/data.cityofnewyork.us/9w7m-hzhe">NYC Open Data</a> and are updated daily. The specific data to be used in this class, linked to at the top of this page.</p>
 <p>The dataset contains roughly 400,000 rows and 18 columns. There is information on restaurant name and location, type of food, inspection date, and details on violation codes, total scores, and associated grades. The data is longitudinal in nature, with multiple rows per restaurant representing inspections over time. A complete data dictionary can be accessed <a href="Restaurant_Inspection_Open_Data_Dictionary_082214.xlsx">here</a>.</p>
 </div>
 
