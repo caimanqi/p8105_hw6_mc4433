@@ -19,3 +19,5 @@ Additional points can then be assigned based on the severity of the violation, r
 [Problem 1](hw6_problem_1.html)
 
 [Problem 2](https://caimanqi.shinyapps.io/shiny_dashboard_template/)
+
+[GitHub for Problem 1 & 2](https://github.com/monkeydnear/p8105_hw6_yx2450)
